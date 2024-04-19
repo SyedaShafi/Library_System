@@ -47,7 +47,7 @@ def return_book(request, id):
     user_account.balance += book_obj.transactions.amount
 
     user_account.save()
-    messages.success(request, 'Book returned successfully.')
+    messages.success(request, 'Book returned successfully. Check Email')
     send_transaction_email(user_account.user, book_obj.transactions.amount , "Book Return Message", "transactions/payment_email.html")
 
     book_obj.delete()

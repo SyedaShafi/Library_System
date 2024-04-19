@@ -52,7 +52,7 @@ class DepositMoneyView(LoginRequiredMixin, CreateView):
         )
         messages.success(
             self.request,
-            f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
+            f'{"{:,.2f}".format(float(amount))}$ is deposited to your account successfully'
         )
 
         send_transaction_email(self.request.user, amount, "Deposite Message", "transactions/deposite_email.html")
@@ -89,7 +89,7 @@ class BorrowBookView(LoginRequiredMixin, View):
 
 
         account.save(update_fields=['balance'])
-        messages.success(request, f'You borrowed the book with {"{:,.2f}".format(float(price))}tk')
+        messages.success(request, f'You borrowed the book with {"{:,.2f}".format(float(price))}tk. Check email')
 
         send_transaction_email(request.user, price, "Book Borrow Message", "transactions/borrow_email.html")
 
