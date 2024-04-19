@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+{% block title %}Library Management System{% endblock%}
+
+{% block body %}
+<div
+  class="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24"
+>
+  <div class="container mx-auto py-8">
+    <!-- Categories Section -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Categories</h2>
+      <div class="grid grid-cols-6 gap-4">
+        <!-- Example categories -->
+        {% for c in cat  %}
+        <a href="{% url "sort_by_cat" c.id %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0">
+        {{c}}
+        </a>        
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Book Cards Section -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">Books</h2>
+      <div class="grid grid-cols-3 gap-4">
+      
+        {% for book in books %}
+        <div class="bg-white p-4 shadow rounded-md">
+          <img
+            src="{{book.image.url}}"
+            alt="Book Image"
+            class="w-full mb-4 rounded-md"
+             style="max-hight: 200px;"
+          />
+          <h3 class="font-semibold text-lg mb-2">Title: {{book.title}}</h3>
+          <p>
+            <span class="font-semibold text-md">Description: </span>
+            {{book.description | truncatewords:10}}
+          </p>
+          <h4>
+            <span class="font-semibold text-md">Borrowing Price: </span>
+            {{book.book_price}} Tk
+          </h4>
+
+          {% for cat in book.category.all%}
+          <span
+            class="inline-block font-medium text-sm px-4 py-2 leading-none bg-green-400 rounded text-black border-white my-3"
+          >
+            {{cat}} 
+          </span>
+          {% endfor %}
+
+          <div class="my-3">
+            <a
+              href="{% url "book_details" book.id %}"
+              
+              class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0"
+              >Details</a
+            >
+          </div>
+       
+        </div>
+        {% endfor %}
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
